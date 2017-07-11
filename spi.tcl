@@ -1,0 +1,1 @@
+write_cfgmem  -format mcs -size 16 -interface SPIx4 -loadbit "up 0x00000000 /home/zxd/work/lvds_xil/lvds_tx/lvds_tx.runs/impl_1/top5x2_7to1_ddr_tx.bit " -force -file "/home/zxd/work/lvds_xil/lvds_tx/lvds_tx.runs/impl_1/lvds.mcs"

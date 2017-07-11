@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="clk_lvds_synth_1" LaunchDir="/home/zxd/work/lvds_xil/lvds_tx/lvds_tx.runs/clk_lvds_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+</Runs>
+
