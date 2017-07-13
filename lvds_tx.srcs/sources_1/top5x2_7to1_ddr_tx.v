@@ -86,6 +86,21 @@ wire	[1:0]	clkout_n ;
 wire	[9:0]	dataout_p ;		
 wire	[9:0]	dataout_n ;		
 wire		tx_mmcm_lckd ;
+
+wire hsync;
+wire vsync;
+
+//timing generator
+
+patternGenerator patterngen (
+    .clk_in     (tx_pixel_clk),
+    .reset_in   (reset),
+    .vdat_o     (),
+    .hsync_o    (hsync),
+    .vsync_o    (vsync),
+    .de_o       (),
+    .vspole_in  (1'b1),
+    .hspole_in  (1'b1));
 	
 // Clock Input
 
@@ -144,7 +159,9 @@ always @ (posedge tx_pixel_clk) begin
 	if (tx_mmcm_lckd == 1'b0) begin
 		txd1 <= 35'b00000000000000000000000000000000001 ;
 	end else begin
-		txd1 <= {txd1[33:0], txd1[34]} ;
+		//txd1 <= {txd1[33:0], txd1[34]} ;
+		txd1 <= {hsync, vsync};
+		
 	end 
 end
       	
