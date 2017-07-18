@@ -64,7 +64,7 @@
 
 `timescale 1ps/1ps
 
-module serdes_7_to_1_diff_ddr (txclk, reset, pixel_clk, txclk_div, datain, clk_pattern, dataout_p, dataout_n, clkout_p, clkout_n) ;
+module serdes_7_to_1_diff_ddr (txclk, reset, pixel_clk, txclk_div, datain, clk_pattern, dataout_p, dataout_n, clkout_p, clkout_n, tx_rdy_o) ;
 
 parameter integer 	D = 16 ;			// Set the number of outputs
 parameter         	DATA_FORMAT = "PER_CLOCK" ;     // Parameter Used to determine method for mapping input parallel word to output serial words
@@ -79,6 +79,7 @@ output 	[D-1:0]		dataout_p ;			// output data
 output 	[D-1:0]		dataout_n ;			// output data
 output 			clkout_p ;			// output clock
 output 			clkout_n ;			// output clock
+output  reg tx_rdy_o;
 
 wire	[D-1:0]		cascade_di ;	
 wire	[D-1:0]		cascade_ti ;	
@@ -142,9 +143,11 @@ end
 always @ (posedge txclk_div) begin
 if (reset == 1'b1) begin
 	clockb2 <= 1'b0 ;
+	tx_rdy_o <= 1'b0;
 end
 else begin
 	clockb2 <= ~clockb2 ;
+	tx_rdy_o <= 1'b1;
 end
 end
 

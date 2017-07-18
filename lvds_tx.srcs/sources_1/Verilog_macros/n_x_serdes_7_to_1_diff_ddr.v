@@ -54,7 +54,7 @@
 
 `timescale 1ps/1ps
 
-module n_x_serdes_7_to_1_diff_ddr (txclk, reset, pixel_clk, txclk_div, datain, clk_pattern, dataout_p, dataout_n, clkout_p, clkout_n) ;
+module n_x_serdes_7_to_1_diff_ddr (txclk, reset, pixel_clk, txclk_div, datain, clk_pattern, dataout_p, dataout_n, clkout_p, clkout_n, tx_rdy_o) ;
 
 parameter integer 	N = 8 ;				// Set the number of channels
 parameter integer	D = 6 ;				// Set the number of outputs per channel
@@ -70,6 +70,11 @@ output 	[D*N-1:0]	dataout_p ;			// output data
 output 	[D*N-1:0]	dataout_n ;			// output data
 output 	[N-1:0]		clkout_p ;			// output clock
 output 	[N-1:0]		clkout_n ;			// output clock
+output  tx_rdy_o;
+
+wire [N-1:0] tx_rdy;
+
+assign tx_rdy_o = tx_rdy[0];
 
 genvar i ;
 genvar j ;
@@ -82,6 +87,7 @@ serdes_7_to_1_diff_ddr #(
       	.D			(D),
       	.DATA_FORMAT		(DATA_FORMAT))
 dataout (
+    .tx_rdy_o       (tx_rdy[i]),
 	.dataout_p  		(dataout_p[D*(i+1)-1:D*i]),
 	.dataout_n  		(dataout_n[D*(i+1)-1:D*i]),
 	.clkout_p  		(clkout_p[i]),

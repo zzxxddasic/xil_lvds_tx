@@ -1,7 +1,7 @@
-module patternGenerator(clk_in, reset_in, vspole_in, hspole_in, vdat_o, hsync_o, vsync_o, de_o) ;
+module patternGenerator(clk_in, reset_in, tx_rdy_in, vspole_in, hspole_in, vdat_o, hsync_o, vsync_o, de_o, even_en_o, odd_en_o) ;
 parameter BPP = 10;      //pixel depth
-parameter FW = 640;    //frame width
-parameter FH = 480;    //frame hight 
+parameter FW = 1200;    //frame width
+parameter FH = 1920;    //frame hight 
 
 parameter FPV = 10;      //front porch of frame
 parameter BPV = 33;      //back porch of frame
@@ -16,13 +16,19 @@ parameter WP = FW + FPH + SPH + BPH;  //whole pixel
 
 input clk_in;
 input reset_in;
+input tx_rdy_in;
 input vspole_in;    //vertical sync pole
 input hspole_in;    //horizontal sync pole
 output [3 * BPP -1:0] vdat_o;
 output hsync_o;
 output vsync_o;
 output de_o;
+output even_en_o;
+output odd_en_o;
 
+
+reg even_en_o;
+reg odd_en_o;
 
 reg [11:0] pixelCnt;
 reg [11:0] rowCnt;
@@ -43,10 +49,24 @@ always@(posedge clk_in)
 begin
     if(reset_in)
         pixelCnt <= 0;
-    else if( eol )
+    else if( pixelCnt == WP - 11'b1 )
         pixelCnt <= 0;
+    else if(tx_rdy_in)
+        pixelCnt <= pixelCnt + 12'b1;
+end
+
+always@(posedge clk_in)
+begin
+    if(reset_in)
+    begin
+        even_en_o <= 1'b0;
+        odd_en_o <= 1'b0;
+    end
     else
-        pixelCnt = pixelCnt + 12'b1;
+    begin
+        even_en_o <= ~pixelCnt[0];
+        odd_en_o <= pixelCnt[0];
+    end
 end
 
 always@(posedge clk_in)
@@ -100,7 +120,7 @@ end
 assign hsync_o = hsync_reg ^ hspole_in;
 assign vsync_o = vsync_reg ^ vspole_in;
 
-assign vdat_o = 0;
+assign vdat_o = 0;//{3{pixelCnt[9:0]}};
 assign de_o = he_reg & ve_reg;
 
 endmodule

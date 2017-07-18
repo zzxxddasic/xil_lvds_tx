@@ -58,9 +58,9 @@
 
 module clock_generator_pll_7_to_1_diff_ddr (clkin, txclk, reset, pixel_clk, txclk_div, mmcm_lckd, status) ;
 
-parameter real 	  	CLKIN_PERIOD = 6.000 ;		// clock period (ns) of input clock on clkin_p
+parameter real 	  	CLKIN_PERIOD = 20.000 ;		// clock period (ns) of input clock on clkin_p
 parameter         	DIFF_TERM = "FALSE" ; 		// Parameter to enable internal differential termination
-parameter integer      	MMCM_MODE = 1 ;   		// Parameter to set multiplier for MMCM to get VCO in correct operating range. 1 multiplies input clock by 7, 2 multiplies clock by 14, etc
+parameter integer      	MMCM_MODE = 2 ;   		// Parameter to set multiplier for MMCM to get VCO in correct operating range. 1 multiplies input clock by 7, 2 multiplies clock by 14, etc
 parameter         	TX_CLOCK = "BUFIO" ;   		// Parameter to set transmission clock buffer type, BUFIO, BUF_H, BUF_G
 parameter         	INTER_CLOCK = "BUF_R" ;      	// Parameter to set intermediate clock buffer type, BUFR, BUF_H, BUF_G
 parameter         	PIXEL_CLOCK = "BUF_G" ;       	// Parameter to set final clock buffer type, BUF_R, BUF_H, BUF_G
@@ -88,17 +88,17 @@ assign status[6] = 1'b1 ;
      
 MMCME2_ADV #(
       .BANDWIDTH		("OPTIMIZED"),  		
-      .CLKFBOUT_MULT_F		(7*MMCM_MODE),       		
+      .CLKFBOUT_MULT_F		(7),   //vco 100 X 14 = 700     		
       .CLKFBOUT_PHASE		(0.0),     			
       .CLKIN1_PERIOD		(CLKIN_PERIOD),  		
       .CLKIN2_PERIOD		(CLKIN_PERIOD),  		
-      .CLKOUT0_DIVIDE_F		(2*MMCM_MODE),       		
+      .CLKOUT0_DIVIDE_F		(4),   // 700 / 4 = 175
       .CLKOUT0_DUTY_CYCLE	(0.5), 				
       .CLKOUT0_PHASE		(0.0), 				
-      .CLKOUT1_DIVIDE		(14*MMCM_MODE),   		
+      .CLKOUT1_DIVIDE		(28),   		
       .CLKOUT1_DUTY_CYCLE	(0.5), 				
       .CLKOUT1_PHASE		(0.0), 				
-      .CLKOUT2_DIVIDE		(7*MMCM_MODE),   		
+      .CLKOUT2_DIVIDE		(8),   		
       .CLKOUT2_DUTY_CYCLE	(0.5), 				
       .CLKOUT2_PHASE		(0.0), 				
       .CLKOUT3_DIVIDE		(8),   				

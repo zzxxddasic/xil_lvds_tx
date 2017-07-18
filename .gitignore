@@ -9,6 +9,7 @@
 !*/
 *.runs
 *.cache
+.Xil/
 *.sim
 *.zip
 *~

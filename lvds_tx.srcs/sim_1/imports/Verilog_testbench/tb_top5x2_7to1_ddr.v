@@ -51,7 +51,7 @@
 //  THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT ALL TIMES.
 //
 //////////////////////////////////////////////////////////////////////////////
-`timescale 1 ps / 1ps
+`timescale 1 ns / 1ps
 
 module tb_top5x2_7to1_ddr () ;
 
@@ -68,18 +68,15 @@ wire	[4:0]	dataout2_p ;
 wire 	[4:0]	dataout2_n ;
 wire		match ;
 
-initial clk200 = 0 ;
-initial pixelclock = 0 ;
-
-always #(2500) clk200 = ~clk200 ;
-
-always #(5000) pixelclock = ~pixelclock ;
-
-initial
-begin
-reset = 1'b1 ;
-#150000
-reset = 1'b0;
+initial begin
+    reset <= 1'b1;
+    reset <= #15000 1'b0;
+    clk200 <= 0 ;
+    forever #(2.5) clk200 = ~clk200 ;
+end
+initial begin
+    pixelclock <= 0 ;
+    forever #(5.0) pixelclock = ~pixelclock ;
 end
 
 top5x2_7to1_ddr_tx tx(

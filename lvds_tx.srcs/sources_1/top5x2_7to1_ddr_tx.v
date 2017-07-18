@@ -74,7 +74,7 @@ parameter [6:0] TX_CLK_GEN   = 7'b1100011 ;		// OR Transmit a constant to make a
 				
 reg	[34:0]	txd1 ;				
 wire	[34:0]	txd2 ;				
-wire	[69:0]	txdata ;				
+reg	[69:0]	txdata ;				
 wire		tx_pixel_clk ;		
 wire		tx_bufpll_lckd ; 		
 wire		tx_bufg_pll_x1 ; 		
@@ -89,16 +89,31 @@ wire		tx_mmcm_lckd ;
 
 wire hsync;
 wire vsync;
+wire de;
+wire even_en;
+wire odd_en;
+wire tx_rdy;
 
-//timing generator
+//video timing generator
+wire [6:0] ra, rb, rc, rd, re;
+wire [9:0] r, g, b;
+
+assign ra = {g[4], r[9:4]};
+assign rb = {b[5:4], g[9:5]};
+assign rc = {de, vsync, hsync, b[9:6]};
+assign rd = {de, b[3:2], g[3:2], r[3:2]};
+assign re = {de, b[1:0], g[1:0], r[1:0]};
 
 patternGenerator patterngen (
     .clk_in     (tx_pixel_clk),
-    .reset_in   (reset),
-    .vdat_o     (),
+    .reset_in   (not_tx_mmcm_lckd),
+    .tx_rdy_in  (tx_rdy),
+    .vdat_o     ({r,g,b}),
     .hsync_o    (hsync),
     .vsync_o    (vsync),
-    .de_o       (),
+    .de_o       (de),
+    .odd_en_o   (odd_en),
+    .even_en_o  (even_en),
     .vspole_in  (1'b1),
     .hspole_in  (1'b1));
 	
@@ -126,14 +141,18 @@ assign not_tx_mmcm_lckd = ~tx_mmcm_lckd ;
 // Transmitter Logic for N D-bit channels
 
 // combine channel transmitter data
-
-assign txdata = {txd2, txd1} ;
+always@(posedge tx_pixel_clk)
+begin
+    if(odd_en)
+        txdata = {txd2, txd1} ;
+end
 
 n_x_serdes_7_to_1_diff_ddr #(
       	.D			(D),
       	.N			(N),				// 2 channels
 	.DATA_FORMAT 		("PER_CLOCK")) 			// PER_CLOCK or PER_CHANL data formatting
-dataout (                      
+dataout (         
+    .tx_rdy_o       (tx_rdy),             
 	.dataout_p  		(dataout_p),
 	.dataout_n  		(dataout_n),
 	.clkout_p  		(clkout_p),
@@ -155,16 +174,14 @@ assign clkout2_p = clkout_p[1] ;	assign clkout2_n = clkout_n[1] ;
 
 // 'walking one' Data generation for testing, user logic will go here
 
-always @ (posedge tx_pixel_clk) begin
-	if (tx_mmcm_lckd == 1'b0) begin
-		txd1 <= 35'b00000000000000000000000000000000001 ;
-	end else begin
-		//txd1 <= {txd1[33:0], txd1[34]} ;
-		txd1 <= {hsync, vsync};
-		
+always @(posedge tx_pixel_clk) 
+begin
+	if(even_en)
+	begin
+	   txd1 <= {re, rd, rc, rb, ra} ;
 	end 
 end
-      	
-assign txd2 = txd1 ;
+
+assign txd2 = {re, rd, rc, rb, ra} ;
       
 endmodule
