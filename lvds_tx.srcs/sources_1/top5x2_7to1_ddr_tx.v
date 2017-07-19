@@ -150,7 +150,7 @@ end
 n_x_serdes_7_to_1_diff_ddr #(
       	.D			(D),
       	.N			(N),				// 2 channels
-	.DATA_FORMAT 		("PER_CLOCK")) 			// PER_CLOCK or PER_CHANL data formatting
+	.DATA_FORMAT 		("PER_CHANNL")) 			// PER_CLOCK or PER_CHANL data formatting
 dataout (         
     .tx_rdy_o       (tx_rdy),             
 	.dataout_p  		(dataout_p),

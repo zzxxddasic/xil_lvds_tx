@@ -120,7 +120,7 @@ end
 assign hsync_o = hsync_reg ^ hspole_in;
 assign vsync_o = vsync_reg ^ vspole_in;
 
-assign vdat_o = 0;//{3{pixelCnt[9:0]}};
+assign vdat_o = {3{pixelCnt[9:0]}};
 assign de_o = he_reg & ve_reg;
 
 endmodule
