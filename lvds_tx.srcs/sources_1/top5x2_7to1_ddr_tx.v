@@ -114,8 +114,8 @@ patternGenerator patterngen (
     .de_o       (de),
     .odd_en_o   (odd_en),
     .even_en_o  (even_en),
-    .vspole_in  (1'b1),
-    .hspole_in  (1'b1));
+    .vspole_in  (1'b0),
+    .hspole_in  (1'b0));
 	
 // Clock Input
 

@@ -3,13 +3,13 @@ parameter BPP = 10;      //pixel depth
 parameter FW = 1200;    //frame width
 parameter FH = 1920;    //frame hight 
 
-parameter FPV = 10;      //front porch of frame
-parameter BPV = 33;      //back porch of frame
-parameter SPV = 2;      //vertical sync pulse
+parameter FPV = 12;      //front porch of frame
+parameter BPV = 3;      //back porch of frame
+parameter SPV = 3;      //vertical sync pulse
 
 parameter FPH = 16;      //front proch of line 
-parameter BPH = 48;      //back proch of line 
-parameter SPH = 96;     //horizontal sync pluses
+parameter BPH = 10;      //back proch of line 
+parameter SPH = 10;     //horizontal sync pluses
 
 parameter WL = FH + FPV + SPV + BPV;  //whole line
 parameter WP = FW + FPH + SPH + BPH;  //whole pixel
@@ -120,7 +120,7 @@ end
 assign hsync_o = hsync_reg ^ hspole_in;
 assign vsync_o = vsync_reg ^ vspole_in;
 
-assign vdat_o = {3{pixelCnt[9:0]}};
+assign vdat_o = 30'b1111111111_1111111111_0000000000;//{3{pixelCnt[9:0]}};
 assign de_o = he_reg & ve_reg;
 
 endmodule
