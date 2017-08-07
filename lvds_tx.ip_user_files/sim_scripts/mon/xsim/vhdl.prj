@@ -1,0 +1,12 @@
+vhdl xil_defaultlib "../../../bd/mon/ip/mon_mdm_0_0/sim/mon_mdm_0_0.vhd" 
+vhdl xil_defaultlib "../../../bd/mon/ip/mon_proc_sys_reset_0_0/sim/mon_proc_sys_reset_0_0.vhd" 
+vhdl xil_defaultlib "../../../bd/mon/ip/mon_microblaze_0_0/sim/mon_microblaze_0_0.vhd" 
+vhdl xil_defaultlib "../../../bd/mon/ip/mon_lmb_v10_0_0/sim/mon_lmb_v10_0_0.vhd" 
+vhdl xil_defaultlib "../../../bd/mon/ip/mon_lmb_v10_1_0/sim/mon_lmb_v10_1_0.vhd" 
+vhdl xil_defaultlib "../../../bd/mon/ip/mon_lmb_bram_if_cntlr_0_0/sim/mon_lmb_bram_if_cntlr_0_0.vhd" 
+vhdl xil_defaultlib "../../../bd/mon/ip/mon_lmb_bram_if_cntlr_1_0/sim/mon_lmb_bram_if_cntlr_1_0.vhd" 
+vhdl xil_defaultlib "../../../bd/mon/ip/mon_axi_vdma_0_0/sim/mon_axi_vdma_0_0.vhd" 
+vhdl xil_defaultlib "../../../bd/mon/ip/mon_axi_uartlite_0_0/sim/mon_axi_uartlite_0_0.vhd" 
+vhdl xil_defaultlib "../../../bd/mon/ip/mon_v_tc_0_0/sim/mon_v_tc_0_0.vhd" 
+
+nosort

@@ -1,0 +1,49 @@
+{
+   guistr: "# # String gsaved with Nlview 6.6.5b  2016-09-06 bk=1.3687 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port UART -pg 1 -y 780 -defaultsOSRD
+preplace port clk_in -pg 1 -y 750 -defaultsOSRD
+preplace port DDR3 -pg 1 -y 540 -defaultsOSRD
+preplace inst v_tc_0 -pg 1 -lvl 4 -y 620 -defaultsOSRD
+preplace inst axi_vdma_0 -pg 1 -lvl 4 -y 400 -defaultsOSRD -resize 254 132
+preplace inst mig_7series_0 -pg 1 -lvl 6 -y 600 -defaultsOSRD -resize 200 190
+preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -y 340 -defaultsOSRD
+preplace inst localmem -pg 1 -lvl 3 -y 290 -defaultsOSRD
+preplace inst mdm_0 -pg 1 -lvl 1 -y 120 -defaultsOSRD
+preplace inst axi_uartlite_0 -pg 1 -lvl 6 -y 790 -defaultsOSRD
+preplace inst axi_interconnect_0 -pg 1 -lvl 5 -y 320 -defaultsOSRD -resize 191 350
+preplace inst microblaze_0 -pg 1 -lvl 2 -y 140 -defaultsOSRD -resize 385 252
+preplace inst axi_interconnect_1 -pg 1 -lvl 3 -y 540 -defaultsOSRD -resize 195 212
+preplace inst clk_wiz_0 -pg 1 -lvl 5 -y 650 -defaultsOSRD
+preplace netloc mig_7series_0_mmcm_locked 1 0 7 40 760 NJ 760 NJ 760 1200J 760 NJ 760 1820J 720 2080
+preplace netloc clk_wiz_0_locked 1 5 1 1790
+preplace netloc axi_interconnect_1_M01_AXI 1 3 1 N
+preplace netloc mig_7series_0_DDR3 1 6 1 NJ
+preplace netloc mig_7series_0_ui_addn_clk_0 1 3 4 1220 490 1520J 520 1790J 460 2100
+preplace netloc mdm_0_Debug_SYS_Rst 1 0 2 20 180 390
+preplace netloc axi_vdma_0_M_AXI_MM2S 1 4 1 1520
+preplace netloc microblaze_0_ILMB 1 2 1 900
+preplace netloc clk_wiz_0_clk_100_o 1 5 1 N
+preplace netloc proc_sys_reset_0_bus_struct_reset 1 1 2 NJ 320 N
+preplace netloc proc_sys_reset_0_mb_reset 1 1 1 410
+preplace netloc microblaze_0_M_AXI_DP 1 2 1 890
+preplace netloc microblaze_0_M_AXI_DC 1 2 3 NJ 190 NJ 190 N
+preplace netloc axi_interconnect_1_M02_AXI 1 3 3 1170 770 NJ 770 NJ
+preplace netloc mig_7series_0_ui_clk 1 0 7 30 790 400 790 910 790 1190 790 1530 790 1810 480 2080
+preplace netloc proc_sys_reset_0_interconnect_aresetn 1 1 4 NJ 360 880 370 1170J 270 NJ
+preplace netloc clk_in_1 1 0 5 NJ 750 NJ 750 NJ 750 NJ 750 1540J
+preplace netloc clk_wiz_0_clk_200_o 1 5 1 1800
+preplace netloc microblaze_0_M_AXI_IC 1 2 3 880J 200 NJ 200 1520
+preplace netloc axi_uartlite_0_UART 1 6 1 NJ
+preplace netloc axi_interconnect_0_M00_AXI 1 5 1 1800
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 5 NJ 380 870 810 1210 810 1550 810 1830
+preplace netloc mig_7series_0_ui_clk_sync_rst 1 0 7 40 250 390J 290 870J 120 NJ 120 NJ 120 NJ 120 2090
+preplace netloc mdm_0_MBDEBUG_0 1 1 1 N
+preplace netloc axi_interconnect_1_M00_AXI 1 3 1 1180
+preplace netloc microblaze_0_DLMB 1 2 1 910
+levelinfo -pg 1 0 220 650 1050 1370 1670 1960 2120 -top 0 -bot 860
+",
+}
+{
+   da_axi4_cnt: "2",
+}
